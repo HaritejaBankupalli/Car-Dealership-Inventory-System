@@ -7,6 +7,11 @@
 
 const VehicleModel = require('../models/vehicleModel');
 
+/**
+ * Validates a vehicle payload. When `partial` is true (used for PATCH-like
+ * PUT updates), only the fields that are actually present are checked,
+ * rather than requiring the full set of fields.
+ */
 function validateVehiclePayload(body, { partial = false } = {}) {
   const errors = [];
   const required = ['make', 'model', 'category', 'price', 'quantity'];
