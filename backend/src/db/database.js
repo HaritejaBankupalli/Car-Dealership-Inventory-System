@@ -1,15 +1,15 @@
 /**
  * database.js
  * ------------
- * Sets up the SQLite database connection using better-sqlite3 and
- * initializes the schema (users + vehicles tables) if it does not
+ * Sets up the SQLite database connection using a pure JS/WASM adapter (sqliteWorkerAdapter)
+ * and initializes the schema (users + vehicles tables) if it does not
  * already exist. A separate, isolated database file is used when
  * running under Jest (NODE_ENV === 'test') so that test runs never
  * touch or pollute the development/production data file.
  */
 
 const path = require('path');
-const Database = require('better-sqlite3');
+const Database = require('./sqliteWorkerAdapter');
 
 const DB_FILENAME =
   process.env.NODE_ENV === 'test' ? 'test-database.sqlite' : 'dealership.sqlite';
