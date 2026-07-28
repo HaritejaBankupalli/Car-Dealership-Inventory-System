@@ -157,6 +157,15 @@ adjustment work.
 
 ---
 
+## 9. Node 24 pure JS/WASM SQLite adapter implementation
+
+**Prompt:**
+> Debug native better-sqlite3 C++ build errors on Node 24 environment, replace native binding with pure JavaScript/WASM SQLite adapter, run full test suite, and ensure clean server startup.
+
+**What I used it for:** Designed `sqliteWorkerAdapter.js` using `sql.js` and `worker_threads` with `SharedArrayBuffer` & `Atomics.wait` for synchronous WASM database access. Updated `database.js` to eliminate C++ compilation requirements, verified all 26 Jest unit and integration tests passed cleanly, and started the application servers.
+
+---
+
 ## Reflection
 
 Across this project, AI was used heavily for **first-draft generation**
@@ -170,3 +179,4 @@ implementation → verify green → refactor) mapped naturally onto
 AI-assisted development: I could ask for tests first, confirm they failed
 for the right reason, then ask for an implementation targeted at exactly
 those tests.
+
