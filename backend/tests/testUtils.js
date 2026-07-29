@@ -12,9 +12,10 @@ process.env.JWT_SECRET = 'test-secret';
 const db = require('../src/db/database');
 
 function resetDatabase() {
+  db.exec('DELETE FROM purchases;');
   db.exec('DELETE FROM vehicles;');
   db.exec('DELETE FROM users;');
-  db.exec("DELETE FROM sqlite_sequence WHERE name IN ('vehicles', 'users');");
+  db.exec("DELETE FROM sqlite_sequence WHERE name IN ('purchases', 'vehicles', 'users');");
 }
 
 module.exports = { resetDatabase, db };

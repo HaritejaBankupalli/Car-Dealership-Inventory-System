@@ -2,7 +2,7 @@
  * database.js
  * ------------
  * Sets up the SQLite database connection using a pure JS/WASM adapter (sqliteWorkerAdapter)
- * and initializes the schema (users + vehicles tables) if it does not
+ * and initializes the schema (users, vehicles, and purchases tables) if it does not
  * already exist. A separate, isolated database file is used when
  * running under Jest (NODE_ENV === 'test') so that test runs never
  * touch or pollute the development/production data file.
@@ -119,6 +119,18 @@ function initializeSchema() {
       image_url TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS purchases (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      vehicle_id INTEGER NOT NULL,
+      quantity INTEGER NOT NULL DEFAULT 1 CHECK(quantity > 0),
+      price_at_purchase REAL NOT NULL CHECK(price_at_purchase >= 0),
+      total_price REAL NOT NULL CHECK(total_price >= 0),
+      purchased_at TEXT NOT NULL DEFAULT (datetime('now')),
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+      FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE
     );
   `);
 

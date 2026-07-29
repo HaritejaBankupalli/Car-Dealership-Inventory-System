@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Car, LogOut, LayoutDashboard, ShieldCheck } from 'lucide-react';
+import { Car, LogOut, LayoutDashboard, ShieldCheck, ShoppingBag } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
-export default function Navbar() {
+export default function Navbar({ onOpenHistory }) {
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -12,41 +12,56 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-brand-950 text-white shadow-md">
+    <nav className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80 text-white shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2 font-bold text-lg tracking-tight">
-            <Car className="w-6 h-6 text-brand-400" />
-            AutoNest Dealership
+          <Link to="/" className="flex items-center gap-2.5 font-extrabold text-xl tracking-tight text-white group">
+            <div className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:scale-105 transition">
+              <Car className="w-5 h-5" />
+            </div>
+            <span>AutoNest<span className="text-cyan-400"> 3D</span></span>
           </Link>
 
-          <div className="flex items-center gap-4 text-sm">
+          <div className="flex items-center gap-3 text-sm">
             {isAuthenticated ? (
               <>
-                <Link to="/" className="flex items-center gap-1 hover:text-brand-300 transition">
-                  <LayoutDashboard className="w-4 h-4" /> Dashboard
+                <Link to="/" className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">
+                  <LayoutDashboard className="w-4 h-4 text-cyan-400" /> Catalog
                 </Link>
+
+                <button
+                  onClick={onOpenHistory}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition"
+                >
+                  <ShoppingBag className="w-4 h-4 text-cyan-400" />
+                  <span>{isAdmin ? 'Sales Ledger' : 'My Purchases'}</span>
+                </button>
+
                 {isAdmin && (
-                  <span className="flex items-center gap-1 px-2 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-semibold">
+                  <span className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold">
                     <ShieldCheck className="w-3.5 h-3.5" /> Admin
                   </span>
                 )}
-                <span className="hidden sm:inline text-slate-300">Hi, {user?.name?.split(' ')[0]}</span>
+
+                <span className="hidden md:inline text-xs font-medium text-slate-400">
+                  Hi, {user?.name?.split(' ')[0]}
+                </span>
+
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-1 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition"
+                  className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg text-xs font-medium transition"
                 >
-                  <LogOut className="w-4 h-4" /> Logout
+                  <LogOut className="w-3.5 h-3.5" /> Logout
                 </button>
               </>
             ) : (
               <>
-                <Link to="/login" className="hover:text-brand-300 transition">
+                <Link to="/login" className="text-slate-300 hover:text-white transition text-xs font-medium px-3 py-1.5">
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-brand-500 hover:bg-brand-600 px-3 py-1.5 rounded-lg font-medium transition"
+                  className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-4 py-1.5 rounded-lg transition text-xs shadow-lg shadow-cyan-500/20"
                 >
                   Sign Up
                 </Link>

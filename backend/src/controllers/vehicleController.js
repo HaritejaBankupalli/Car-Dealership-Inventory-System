@@ -6,6 +6,8 @@
  */
 
 const VehicleModel = require('../models/vehicleModel');
+const PurchaseModel = require('../models/purchaseModel');
+
 
 /**
  * Validates a vehicle payload. When `partial` is true (used for PATCH-like
@@ -102,6 +104,16 @@ function purchaseVehicle(req, res) {
   }
   if (result.error === 'INSUFFICIENT_STOCK') {
     return res.status(409).json({ message: 'Insufficient stock for this purchase' });
+  }
+
+  // Record transaction record for customer & admin ledger
+  if (req.user && req.user.id) {
+    PurchaseModel.create({
+      userId: req.user.id,
+      vehicleId: Number(req.params.id),
+      quantity: amount,
+      priceAtPurchase: result.vehicle.price,
+    });
   }
 
   return res.status(200).json({ message: 'Purchase successful', vehicle: result.vehicle });

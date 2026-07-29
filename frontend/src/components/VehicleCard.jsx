@@ -22,46 +22,66 @@ export default function VehicleCard({ vehicle, onPurchase, onRestock, onEdit, on
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow border border-slate-100 overflow-hidden flex flex-col">
-      <div className="h-40 bg-gradient-to-br from-brand-100 to-brand-50 flex items-center justify-center relative">
+    <div className="group rounded-2xl bg-slate-900/80 border border-slate-800/80 hover:border-cyan-500/40 backdrop-blur-xl shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 overflow-hidden flex flex-col">
+      {/* Image Container */}
+      <div className="h-44 bg-slate-950/60 relative overflow-hidden flex items-center justify-center">
         {vehicle.image_url ? (
-          <img src={vehicle.image_url} alt={`${vehicle.make} ${vehicle.model}`} className="w-full h-full object-cover" />
+          <img
+            src={vehicle.image_url}
+            alt={`${vehicle.make} ${vehicle.model}`}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
         ) : (
-          <span className="text-brand-700 text-4xl font-bold opacity-30">
-            {vehicle.make?.[0]}
-            {vehicle.model?.[0]}
-          </span>
+          <div className="flex flex-col items-center justify-center text-slate-600">
+            <span className="text-4xl font-extrabold tracking-widest uppercase">
+              {vehicle.make?.[0]}
+              {vehicle.model?.[0]}
+            </span>
+          </div>
         )}
-        <span className="absolute top-3 right-3 bg-white/90 text-xs font-semibold px-2 py-1 rounded-full text-brand-800 flex items-center gap-1">
+
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
+
+        <span className="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-cyan-400 border border-cyan-500/30 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
           <Tag className="w-3 h-3" /> {vehicle.category}
         </span>
       </div>
 
-      <div className="p-4 flex flex-col gap-2 flex-1">
+      {/* Content */}
+      <div className="p-5 flex flex-col gap-3 flex-1">
         <div className="flex items-start justify-between">
-          <h3 className="font-semibold text-slate-800 text-lg leading-tight">
-            {vehicle.make} {vehicle.model}
-          </h3>
-          <span className="text-brand-700 font-bold">{currency.format(vehicle.price)}</span>
-        </div>
+          <div>
+            <h3 className="font-bold text-white text-lg tracking-tight group-hover:text-cyan-400 transition">
+              {vehicle.make} {vehicle.model}
+            </h3>
+            <div className="flex items-center gap-3 text-xs text-slate-400 mt-1">
+              {vehicle.year && (
+                <span className="flex items-center gap-1">
+                  <Calendar className="w-3.5 h-3.5 text-cyan-400" /> {vehicle.year}
+                </span>
+              )}
+              <span className="flex items-center gap-1">
+                <Gauge className="w-3.5 h-3.5 text-cyan-400" />
+                <span className={outOfStock ? 'text-red-400 font-semibold' : 'text-slate-300'}>
+                  {outOfStock ? 'Out of Stock' : `${vehicle.quantity} available`}
+                </span>
+              </span>
+            </div>
+          </div>
 
-        <div className="flex items-center gap-3 text-xs text-slate-500">
-          {vehicle.year && (
-            <span className="flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5" /> {vehicle.year}
+          <div className="text-right">
+            <span className="text-xl font-extrabold text-emerald-400 tracking-tight">
+              {currency.format(vehicle.price)}
             </span>
-          )}
-          <span className="flex items-center gap-1">
-            <Gauge className="w-3.5 h-3.5" />
-            {outOfStock ? 'Out of stock' : `${vehicle.quantity} in stock`}
-          </span>
+          </div>
         </div>
 
-        <div className="mt-auto pt-3 flex flex-wrap gap-2">
+        {/* Action Buttons */}
+        <div className="mt-auto pt-3 flex flex-wrap gap-2 border-t border-slate-800/80">
           <button
             onClick={handlePurchase}
             disabled={outOfStock || busy}
-            className="flex-1 flex items-center justify-center gap-1.5 bg-brand-600 hover:bg-brand-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white text-sm font-medium py-2 rounded-lg transition"
+            className="flex-1 flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed text-slate-950 text-xs font-bold py-2.5 rounded-xl transition shadow-lg shadow-cyan-500/10"
           >
             <ShoppingCart className="w-4 h-4" />
             {outOfStock ? 'Sold Out' : 'Purchase'}
@@ -73,21 +93,23 @@ export default function VehicleCard({ vehicle, onPurchase, onRestock, onEdit, on
                 onClick={handleRestock}
                 disabled={busy}
                 title="Restock (+1)"
-                className="p-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition"
+                className="p-2.5 rounded-xl bg-slate-800 text-emerald-400 hover:bg-emerald-500/20 border border-slate-700 hover:border-emerald-500/40 transition"
               >
                 <PackagePlus className="w-4 h-4" />
               </button>
+
               <button
                 onClick={() => onEdit(vehicle)}
                 title="Edit vehicle"
-                className="p-2 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 transition"
+                className="p-2.5 rounded-xl bg-slate-800 text-amber-400 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/40 transition"
               >
                 <Pencil className="w-4 h-4" />
               </button>
+
               <button
                 onClick={() => onDelete(vehicle.id)}
                 title="Delete vehicle"
-                className="p-2 rounded-lg bg-red-50 text-red-700 hover:bg-red-100 transition"
+                className="p-2.5 rounded-xl bg-slate-800 text-red-400 hover:bg-red-500/20 border border-slate-700 hover:border-red-500/40 transition"
               >
                 <Trash2 className="w-4 h-4" />
               </button>

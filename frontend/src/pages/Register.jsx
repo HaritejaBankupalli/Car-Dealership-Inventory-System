@@ -25,64 +25,82 @@ export default function Register() {
 
   return (
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4">
-      <div className="bg-white rounded-2xl shadow-md border border-slate-100 w-full max-w-sm p-8">
+      <div className="bg-slate-900/80 border border-slate-700/70 rounded-2xl shadow-2xl backdrop-blur-xl w-full max-w-sm p-8 text-slate-100">
         <div className="flex flex-col items-center mb-6">
-          <div className="bg-brand-600 text-white p-3 rounded-2xl mb-3">
-            <Car className="w-6 h-6" />
+          <div className="bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 p-3.5 rounded-2xl mb-3">
+            <Car className="w-7 h-7" />
           </div>
-          <h1 className="text-xl font-bold text-slate-800">Create your account</h1>
-          <p className="text-sm text-slate-500">Join to explore and manage inventory</p>
+          <h1 className="text-2xl font-extrabold text-white">Create your account</h1>
+          <p className="text-xs text-slate-400 mt-1">Join AutoNest to explore and purchase vehicles</p>
         </div>
 
-        {error && <p className="mb-4 text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{error}</p>}
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-medium">
+            {error}
+          </div>
+        )}
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <input
-            required
-            placeholder="Full name"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-400 focus:outline-none"
-          />
-          <input
-            type="email"
-            required
-            placeholder="Email address"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-400 focus:outline-none"
-          />
-          <input
-            type="password"
-            required
-            placeholder="Password (min. 6 characters)"
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-400 focus:outline-none"
-          />
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+          <div>
+            <label className="text-xs font-semibold text-slate-400 mb-1 block">Full name</label>
+            <input
+              required
+              placeholder="Alex Smith"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none"
+            />
+          </div>
 
-          <div className="flex items-center gap-2 text-sm text-slate-600 bg-slate-50 rounded-lg px-3 py-2">
+          <div>
+            <label className="text-xs font-semibold text-slate-400 mb-1 block">Email address</label>
+            <input
+              type="email"
+              required
+              placeholder="alex@example.com"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="text-xs font-semibold text-slate-400 mb-1 block">Password</label>
+            <input
+              type="password"
+              required
+              placeholder="Min. 6 characters"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              className="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none"
+            />
+          </div>
+
+          <div className="flex items-center gap-2 text-xs text-slate-300 bg-slate-950/60 border border-slate-800 rounded-xl px-3.5 py-2.5 mt-1">
             <input
               id="admin-checkbox"
               type="checkbox"
+              className="rounded bg-slate-800 border-slate-700 text-cyan-500 focus:ring-cyan-500 accent-cyan-500"
               checked={form.role === 'admin'}
               onChange={(e) => setForm({ ...form, role: e.target.checked ? 'admin' : 'customer' })}
             />
-            <label htmlFor="admin-checkbox">Register as an admin (for demo purposes)</label>
+            <label htmlFor="admin-checkbox" className="cursor-pointer">
+              Register as an admin (demo mode)
+            </label>
           </div>
 
           <button
             type="submit"
             disabled={submitting}
-            className="flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 rounded-lg transition disabled:opacity-60"
+            className="flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-2.5 rounded-xl transition text-sm shadow-lg shadow-cyan-500/10 mt-2 disabled:opacity-50"
           >
             <UserPlus className="w-4 h-4" /> {submitting ? 'Creating account...' : 'Sign Up'}
           </button>
         </form>
 
-        <p className="text-sm text-center text-slate-500 mt-5">
+        <p className="text-xs text-center text-slate-400 mt-6">
           Already have an account?{' '}
-          <Link to="/login" className="text-brand-600 font-medium hover:underline">
+          <Link to="/login" className="text-cyan-400 font-bold hover:underline">
             Log in
           </Link>
         </p>
