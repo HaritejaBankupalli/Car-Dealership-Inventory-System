@@ -26,7 +26,7 @@ export default function SearchBar({ onSearch, onClear }) {
           value={filters.make}
           onChange={(e) => update('make', e.target.value)}
           placeholder="Tesla, Porsche..."
-          className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none transition"
+          className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none transition"
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -35,7 +35,7 @@ export default function SearchBar({ onSearch, onClear }) {
           value={filters.model}
           onChange={(e) => update('model', e.target.value)}
           placeholder="Model S, 911..."
-          className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none transition"
+          className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none transition"
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -44,7 +44,7 @@ export default function SearchBar({ onSearch, onClear }) {
           value={filters.category}
           onChange={(e) => update('category', e.target.value)}
           placeholder="Electric, SUV..."
-          className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none transition"
+          className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none transition"
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -54,7 +54,7 @@ export default function SearchBar({ onSearch, onClear }) {
           value={filters.minPrice}
           onChange={(e) => update('minPrice', e.target.value)}
           placeholder="0"
-          className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none transition"
+          className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none transition"
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -64,13 +64,13 @@ export default function SearchBar({ onSearch, onClear }) {
           value={filters.maxPrice}
           onChange={(e) => update('maxPrice', e.target.value)}
           placeholder="250000"
-          className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none transition"
+          className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none transition"
         />
       </div>
       <div className="flex gap-2">
         <button
           type="submit"
-          className="flex-1 flex items-center justify-center gap-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold py-2.5 px-3 rounded-xl transition shadow-lg shadow-cyan-500/10"
+          className="flex-1 flex items-center justify-center gap-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold py-2.5 px-3 rounded-xl transition shadow-lg shadow-emerald-500/10"
         >
           <Search className="w-4 h-4" /> Filter
         </button>

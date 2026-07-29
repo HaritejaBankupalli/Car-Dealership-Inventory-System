@@ -22,7 +22,7 @@ export default function VehicleCard({ vehicle, onPurchase, onRestock, onEdit, on
   }
 
   return (
-    <div className="group rounded-2xl bg-slate-900/80 border border-slate-800/80 hover:border-cyan-500/40 backdrop-blur-xl shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 overflow-hidden flex flex-col">
+    <div className="group rounded-2xl bg-slate-900/80 border border-slate-800/80 hover:border-slate-600 backdrop-blur-xl shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
       {/* Image Container */}
       <div className="h-44 bg-slate-950/60 relative overflow-hidden flex items-center justify-center">
         {vehicle.image_url ? (
@@ -42,8 +42,8 @@ export default function VehicleCard({ vehicle, onPurchase, onRestock, onEdit, on
 
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
 
-        <span className="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-cyan-400 border border-cyan-500/30 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
-          <Tag className="w-3 h-3" /> {vehicle.category}
+        <span className="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-slate-300 border border-slate-700 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
+          <Tag className="w-3 h-3 text-slate-400" /> {vehicle.category}
         </span>
       </div>
 
@@ -51,17 +51,17 @@ export default function VehicleCard({ vehicle, onPurchase, onRestock, onEdit, on
       <div className="p-5 flex flex-col gap-3 flex-1">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="font-bold text-white text-lg tracking-tight group-hover:text-cyan-400 transition">
+            <h3 className="font-bold text-white text-lg tracking-tight group-hover:text-slate-200 transition">
               {vehicle.make} {vehicle.model}
             </h3>
             <div className="flex items-center gap-3 text-xs text-slate-400 mt-1">
               {vehicle.year && (
                 <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-cyan-400" /> {vehicle.year}
+                  <Calendar className="w-3.5 h-3.5 text-slate-400" /> {vehicle.year}
                 </span>
               )}
               <span className="flex items-center gap-1">
-                <Gauge className="w-3.5 h-3.5 text-cyan-400" />
+                <Gauge className="w-3.5 h-3.5 text-slate-400" />
                 <span className={outOfStock ? 'text-red-400 font-semibold' : 'text-slate-300'}>
                   {outOfStock ? 'Out of Stock' : `${vehicle.quantity} available`}
                 </span>
@@ -81,7 +81,7 @@ export default function VehicleCard({ vehicle, onPurchase, onRestock, onEdit, on
           <button
             onClick={handlePurchase}
             disabled={outOfStock || busy}
-            className="flex-1 flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed text-slate-950 text-xs font-bold py-2.5 rounded-xl transition shadow-lg shadow-cyan-500/10"
+            className="flex-1 flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed text-slate-950 text-xs font-bold py-2.5 rounded-xl transition shadow-lg"
           >
             <ShoppingCart className="w-4 h-4" />
             {outOfStock ? 'Sold Out' : 'Purchase'}

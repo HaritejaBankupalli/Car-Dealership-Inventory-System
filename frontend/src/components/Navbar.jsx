@@ -12,28 +12,28 @@ export default function Navbar({ onOpenHistory }) {
   }
 
   return (
-    <nav className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80 text-white shadow-xl">
+    <nav className="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 text-white shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2.5 font-extrabold text-xl tracking-tight text-white group">
-            <div className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:scale-105 transition">
-              <Car className="w-5 h-5" />
+            <div className="p-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 group-hover:border-slate-500 transition">
+              <Car className="w-5 h-5 text-emerald-400" />
             </div>
-            <span>AutoNest<span className="text-cyan-400"> 3D</span></span>
+            <span>AutoNest<span className="text-slate-400 font-light"> 3D</span></span>
           </Link>
 
           <div className="flex items-center gap-3 text-sm">
             {isAuthenticated ? (
               <>
                 <Link to="/" className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">
-                  <LayoutDashboard className="w-4 h-4 text-cyan-400" /> Catalog
+                  <LayoutDashboard className="w-4 h-4 text-slate-400" /> Catalog
                 </Link>
 
                 <button
                   onClick={onOpenHistory}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition"
                 >
-                  <ShoppingBag className="w-4 h-4 text-cyan-400" />
+                  <ShoppingBag className="w-4 h-4 text-emerald-400" />
                   <span>{isAdmin ? 'Sales Ledger' : 'My Purchases'}</span>
                 </button>
 
@@ -49,7 +49,7 @@ export default function Navbar({ onOpenHistory }) {
 
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg text-xs font-medium transition"
+                  className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-medium transition border border-slate-700"
                 >
                   <LogOut className="w-3.5 h-3.5" /> Logout
                 </button>
@@ -61,7 +61,7 @@ export default function Navbar({ onOpenHistory }) {
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-4 py-1.5 rounded-lg transition text-xs shadow-lg shadow-cyan-500/20"
+                  className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-1.5 rounded-lg transition text-xs shadow-lg shadow-emerald-500/10"
                 >
                   Sign Up
                 </Link>
