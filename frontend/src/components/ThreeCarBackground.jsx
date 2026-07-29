@@ -10,7 +10,7 @@ export default function ThreeCarBackground() {
 
     // Scene, Camera, Renderer
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x030712, 0.025);
+    scene.fog = new THREE.FogExp2(0xf8fafc, 0.03);
 
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -18,7 +18,7 @@ export default function ThreeCarBackground() {
       0.1,
       1000
     );
-    camera.position.set(0, 2.8, 9.5);
+    camera.position.set(2.5, 2.2, 8.5);
     camera.lookAt(0, 0.4, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -28,68 +28,59 @@ export default function ThreeCarBackground() {
     container.appendChild(renderer.domElement);
 
     // ----------------------------------------------------
-    // NEUTRAL STUDIO LIGHTING (NO BLUE LIGHTS)
+    // LIGHTS FOR LIGHT WHITE ENVIRONMENT
     // ----------------------------------------------------
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.95);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
     keyLight.position.set(6, 12, 8);
     keyLight.castShadow = true;
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0xe2e8f0, 1.2);
+    const fillLight = new THREE.DirectionalLight(0xcbd5e1, 1.0);
     fillLight.position.set(-6, 6, -6);
     scene.add(fillLight);
 
-    const warmRim = new THREE.DirectionalLight(0xfef08a, 0.6);
-    warmRim.position.set(0, 4, -8);
-    scene.add(warmRim);
-
     // ----------------------------------------------------
-    // 3D CAR MODEL GROUP (ELEGANT GUNMETAL SILVER)
+    // STATIONARY 3D CAR MODEL (STATIONARY - NO ROTATION)
     // ----------------------------------------------------
     const carGroup = new THREE.Group();
+    // Fixed stationary angle
+    carGroup.rotation.y = Math.PI / 5;
     scene.add(carGroup);
 
-    // Metallic Gunmetal Silver Material
+    // Metallic Graphite Silver Body Material
     const bodyMaterial = new THREE.MeshStandardMaterial({
-      color: 0x9ca3af,
-      metalness: 0.92,
-      roughness: 0.15,
-      envMapIntensity: 2.0,
+      color: 0x334155,
+      metalness: 0.9,
+      roughness: 0.2,
     });
 
     // Dark Tinted Glass
     const roofMaterial = new THREE.MeshStandardMaterial({
-      color: 0x111827,
+      color: 0x0f172a,
       metalness: 0.95,
       roughness: 0.05,
       transparent: true,
-      opacity: 0.9,
+      opacity: 0.85,
     });
 
-    // Rubber Tire Material
+    // Rubber Tires
     const wheelMaterial = new THREE.MeshStandardMaterial({
-      color: 0x111827,
-      roughness: 0.85,
+      color: 0x1e293b,
+      roughness: 0.8,
     });
 
-    // Silver Alloy Rim Material
+    // Silver Alloy Rims
     const rimMaterial = new THREE.MeshStandardMaterial({
-      color: 0xf3f4f6,
-      metalness: 0.95,
+      color: 0x94a3b8,
+      metalness: 0.9,
       roughness: 0.1,
     });
 
-    // Warm White Headlights & Red Taillights
-    const headlightMaterial = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-    });
-
-    const taillightMaterial = new THREE.MeshBasicMaterial({
-      color: 0xef4444,
-    });
+    const headlightMaterial = new THREE.MeshBasicMaterial({ color: 0xe2e8f0 });
+    const taillightMaterial = new THREE.MeshBasicMaterial({ color: 0xef4444 });
 
     // 1. Lower Body / Chassis
     const chassisGeo = new THREE.BoxGeometry(2.4, 0.6, 4.8);
@@ -140,8 +131,6 @@ export default function ThreeCarBackground() {
       [1.25, 0.42, -1.5],  // Rear Right
     ];
 
-    const wheels = [];
-
     wheelPositions.forEach(([x, y, z]) => {
       const wMesh = new THREE.Mesh(wheelGeo, wheelMaterial);
       const rMesh = new THREE.Mesh(rimGeo, rimMaterial);
@@ -150,7 +139,6 @@ export default function ThreeCarBackground() {
       wGroup.add(rMesh);
       wGroup.position.set(x, y, z);
       carGroup.add(wGroup);
-      wheels.push(wGroup);
     });
 
     // 6. Headlights & Taillights
@@ -163,16 +151,6 @@ export default function ThreeCarBackground() {
     hlRight.position.set(0.8, 0.6, 2.41);
     carGroup.add(hlRight);
 
-    // Headlight Light Beams
-    const pLight1 = new THREE.PointLight(0xffffff, 1.5, 6);
-    pLight1.position.set(-0.8, 0.6, 2.6);
-    carGroup.add(pLight1);
-
-    const pLight2 = new THREE.PointLight(0xffffff, 1.5, 6);
-    pLight2.position.set(0.8, 0.6, 2.6);
-    carGroup.add(pLight2);
-
-    // Taillights
     const tlLeft = new THREE.Mesh(hlGeo, taillightMaterial);
     tlLeft.position.set(-0.8, 0.6, -2.41);
     carGroup.add(tlLeft);
@@ -181,39 +159,20 @@ export default function ThreeCarBackground() {
     tlRight.position.set(0.8, 0.6, -2.41);
     carGroup.add(tlRight);
 
-    // Subtle Ground Reflection Disk
+    // Subtle Ground Shadow Disk
     const shadowGeo = new THREE.PlaneGeometry(8, 8);
     const shadowMat = new THREE.MeshBasicMaterial({
-      color: 0x000000,
+      color: 0x94a3b8,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.25,
     });
     const groundShadow = new THREE.Mesh(shadowGeo, shadowMat);
     groundShadow.rotation.x = -Math.PI / 2;
     groundShadow.position.y = 0.01;
     scene.add(groundShadow);
 
-    // ----------------------------------------------------
-    // ANIMATION LOOP (CONTINUOUS 3D CAR ROTATION)
-    // ----------------------------------------------------
-    let animationFrameId;
-
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-
-      // Rotate 3D car continuously in background
-      carGroup.rotation.y += 0.007;
-      carGroup.position.y = Math.sin(Date.now() * 0.0015) * 0.08;
-
-      // Rotate wheels smoothly
-      wheels.forEach((w) => {
-        w.rotation.x += 0.025;
-      });
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
+    // Render static frame (NO ROTATION LOOP)
+    renderer.render(scene, camera);
 
     // ----------------------------------------------------
     // RESIZE HANDLER
@@ -222,13 +181,13 @@ export default function ThreeCarBackground() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.render(scene, camera);
     };
 
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrameId);
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
@@ -237,10 +196,8 @@ export default function ThreeCarBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-slate-950">
+    <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-slate-50 opacity-40">
       <div ref={mountRef} className="absolute inset-0" />
-      {/* Clean Dark Vignette Overlay */}
-      <div className="absolute inset-0 bg-radial from-transparent via-slate-950/50 to-slate-950/90" />
     </div>
   );
 }
